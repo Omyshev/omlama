@@ -1,45 +1,48 @@
 ;(function () {
 	'use strict'
 
-	function createCustomPage() {
-		let html = $('<div class="custom-page">')
-			.css({
-				display: 'flex',
-				'align-items': 'center',
-				'justify-content': 'center',
-				height: '100vh',
-				'font-size': '24px',
-			})
-			.text('Привет')
+	function MyPage() {
+		let html = document.createElement('div')
+		html.classList.add('my-page')
+		html.innerHTML = `<h1 style="text-align:center; margin-top: 20%;">Привет</h1>`
 
-		return {
-			render: function () {
-				return html
-			},
-			start: function () {},
-			pause: function () {},
-			stop: function () {},
-			destroy: function () {
-				html.remove()
-			},
+		this.create = function () {
+			return this.render()
+		}
+
+		this.render = function () {
+			return html
+		}
+
+		this.start = function () {}
+
+		this.pause = function () {}
+
+		this.stop = function () {}
+
+		this.destroy = function () {
+			html.remove()
 		}
 	}
 
-	function openCustomPage() {
+	function openMyPage() {
 		Lampa.Activity.push({
 			url: '',
 			title: 'Моя страница',
-			component: createCustomPage(),
+			component: MyPage,
 		})
 	}
 
 	function addMenuButton() {
-		let menu = $('.menu .menu__list').eq(0)
-		let button = $('<li class="menu__item selector focus">')
-			.append('<div class="menu__text">Моя страница</div>')
-			.on('hover:enter', openCustomPage)
+		let menu = document.querySelector('.menu .menu__list')
+		if (!menu) return
 
-		menu.append(button)
+		let button = document.createElement('li')
+		button.classList.add('menu__item', 'selector', 'focus')
+		button.innerHTML = `<div class="menu__text">Моя страница</div>`
+		button.addEventListener('hover:enter', openMyPage)
+
+		menu.appendChild(button)
 	}
 
 	function init() {
