@@ -1,27 +1,25 @@
 ;(function () {
 	'use strict'
 
-	function MyPage() {
-		let html = document.createElement('div')
-		html.classList.add('my-page')
-		html.innerHTML = `<h1 style="text-align:center; margin-top: 20%;">Привет</h1>`
-
+	function MyPage(object) {
 		this.create = function () {
-			return this.render()
-		}
+			let html = document.createElement('div')
+			html.classList.add('my-page')
+			html.innerHTML = `<h1 style="text-align:center; margin-top: 20%;">Привет</h1>`
 
-		this.render = function () {
-			return html
-		}
+			this.render = function () {
+				return html
+			}
 
-		this.start = function () {}
+			this.start = function () {}
 
-		this.pause = function () {}
+			this.pause = function () {}
 
-		this.stop = function () {}
+			this.stop = function () {}
 
-		this.destroy = function () {
-			html.remove()
+			this.destroy = function () {
+				html.remove()
+			}
 		}
 	}
 
@@ -29,7 +27,7 @@
 		Lampa.Activity.push({
 			url: '',
 			title: 'Моя страница',
-			component: MyPage,
+			component: MyPage, // Передаём функцию конструктора
 		})
 	}
 
