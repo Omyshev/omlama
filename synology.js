@@ -4,25 +4,20 @@
 	// Создаём новый компонент
 	function CustomPage(object) {
 		var html = $('<div class="custom-page">')
-		$('body').append(
-			'<h1 style="text-align:center;">Моя кастомная страница</h1>'
-		)
+		html.append('<h1 style="text-align:center;">Моя кастомная страница</h1>')
 
 		this.create = function () {
 			return html
 		}
 
-		this.start = function () {
-			$('body').addClass('no-scroll')
-		}
+		this.start = function () {}
 
 		this.destroy = function () {
-			$('body').removeClass('no-scroll')
 			html.remove()
 		}
 	}
 
-	// Добавляем компонент в систему Lampa
+	// Добавляем компонент в Lampa
 	Lampa.Component.add('custom_page', CustomPage)
 
 	// Функция для открытия страницы
@@ -30,8 +25,11 @@
 		Lampa.Activity.push({
 			url: '',
 			title: 'Кастомная страница',
-			component: 'custom_page', // Используем имя зарегистрированного компонента
+			component: 'custom_page', // Указываем зарегистрированный компонент
 			page: true,
+			onBack: function () {
+				Lampa.Activity.backward()
+			},
 		})
 	}
 
@@ -40,7 +38,9 @@
 		var menu = $('.menu .menu__list').eq(0)
 		var button = $('<li class="menu__item selector">')
 			.append('<div class="menu__text">Моя страница</div>')
-			.on('hover:enter', openCustomPage)
+			.on('hover:enter', function () {
+				openCustomPage()
+			})
 
 		menu.append(button)
 	}
