@@ -36,7 +36,7 @@
 		$('#RELOAD').on('hover:enter hover:click hover:touch', function () {
 			// location.reload()
 			try {
-				openYouTubeIframe()
+				openMyPage()
 			} catch (e) {
 				console.error('Error opening YouTube iframe: ', e)
 			}
@@ -110,24 +110,36 @@
 			// 	Lampa.Android.openYoutube('TeUQrJrfrkk')
 			// } else window.location.href = 'https://youtube.com/tv' //Android.openYoutube(a.id) else YouTube.play(a.id)
 		})
+		function createMyPageComponent() {
+			var pageComponent = {
+				name: 'MyCustomPage',
+				html: `
+							<div style="background-color: #333; color: #fff; padding: 20px;">
+									<h1>Добро пожаловать на мою страницу!</h1>
+									<p>Это кастомная страница в Lampa, созданная с использованием компонента.</p>
+									<button id="backButton" style="padding: 10px; background-color: #007bff; color: white;">Вернуться</button>
+							</div>
+					`,
+				events: {
+					// Обработчик для кнопки "Вернуться"
+					'#backButton': function () {
+						Lampa.View.close() // Закрытие текущей страницы
+					},
+				},
+			}
 
-		function openYouTubeIframe() {
-			const pageContent = `
-					<div style="background-color: #333; color: #fff; padding: 20px;">
-							<h1>Добро пожаловать на мою страницу!</h1>
-							<p>Это пример страницы внутри Lampa.</p>
-							<button id="goBackButton">Вернуться</button>
-					</div>
-			`
-			// Открываем новый экран
-			Lampa.Start.show(pageContent)
-			// Обработчик кнопки "Вернуться"
-			document
-				.getElementById('goBackButton')
-				.addEventListener('click', function () {
-					Lampa.Start.back() // Возвращаемся на предыдущий экран
-				})
+			// Добавляем компонент в систему
+			Lampa.Component.add(pageComponent.name, pageComponent)
 		}
+
+		// Функция для открытия страницы
+		function openMyPage() {
+			// Получаем компонент по имени и открываем его
+			var page = Lampa.Component.get('MyCustomPage')
+			Lampa.View.open(page.html)
+		}
+
+		createMyPageComponent()
 
 		// function openYouTubeIframe() {
 		// 	console.log('New')
