@@ -113,12 +113,25 @@
 
 		function openYouTubeIframe() {
 			Lampa.Modal.open({
-				title: 'YouTube',
-				size: 'large',
-				html: '<iframe width="100%" height="500px" src="https://www.youtube.com/embed/?listType=user_uploads&list=YouTube" frameborder="0" allowfullscreen></iframe>',
-				onBack: function () {
-					Lampa.Modal.close()
-				},
+				title: '',
+				align: 'center',
+				zIndex: 300,
+				html: $('<div class="about"> plugins_need_reload </div>'),
+				buttons: [
+					{
+						name: '123',
+						onSelect: function onSelect() {
+							Modal.close()
+							cancel()
+						},
+					},
+					{
+						name: Lang.translate('settings_param_yes'),
+						onSelect: function onSelect() {
+							window.location.reload()
+						},
+					},
+				],
 			})
 		}
 	} // end of Add (main function)
