@@ -81,7 +81,11 @@
 		}
 
 		tubemenu.on('hover:enter', function () {
-			openYouTubeIframe()
+			try {
+				openYouTubeIframe()
+			} catch (e) {
+				console.error('Error opening YouTube iframe: ', e)
+			}
 			//window.location.href = 'https://youtube.com/tv'
 			// if (Lampa.Platform.is('webos')) {
 			// 	webOS.service.request('luna://com.webos.applicationManager', {
