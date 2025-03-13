@@ -4,7 +4,9 @@
 	// Создаём новый компонент
 	function CustomPage(object) {
 		var html = $('<div class="custom-page">')
-		html.append('<h1 style="text-align:center;">Моя кастомная страница</h1>')
+		$('body').append(
+			'<h1 style="text-align:center;">Моя кастомная страница</h1>'
+		)
 
 		this.create = function () {
 			return html
