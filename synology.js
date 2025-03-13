@@ -1,97 +1,54 @@
 ;(function () {
 	'use strict'
 
-	// Создаем компонент для кастомной страницы
-	function CustomPage() {
-		var html = $('<div class="custom-page">')
-
-		html.append('<h1 style="text-align:center;">Моя кастомная страница</h1>')
-		html.append(
-			'<div style="text-align:center;"><button id="closePage">Закрыть</button></div>'
-		)
-
-		// Метод create (или render) — возвращает HTML-элемент
-		this.create = function () {
-			return html
-		}
-
-		// Метод start — инициализация компонента
-		this.start = function () {
-			html.find('#closePage').on('click', function () {
-				Lampa.Activity.backward() // Закрытие страницы
+	function createCustomPage() {
+		let html = $('<div class="custom-page">')
+			.css({
+				display: 'flex',
+				'align-items': 'center',
+				'justify-content': 'center',
+				height: '100vh',
+				'font-size': '24px',
 			})
-		}
+			.text('Привет')
 
-		// Метод destroy — очистка ресурсов
-		this.destroy = function () {
-			html.remove()
-		}
-
-		// Метод pause — опциональный, для приостановки компонента
-		this.pause = function () {
-			console.log('Компонент приостановлен')
+		return {
+			render: function () {
+				return html
+			},
+			start: function () {},
+			pause: function () {},
+			stop: function () {},
+			destroy: function () {
+				html.remove()
+			},
 		}
 	}
 
-	// Регистрируем компонент в Lampa
-	Lampa.Component.add('custom_page', CustomPage)
-
-	// Функция для открытия кастомной страницы
 	function openCustomPage() {
 		Lampa.Activity.push({
 			url: '',
-			title: 'Кастомная страница',
-			component: 'custom_page', // Используем зарегистрированный компонент
-			page: 1,
+			title: 'Моя страница',
+			component: createCustomPage(),
 		})
 	}
 
-	// Добавляем кнопку в меню
 	function addMenuButton() {
-		var menu = $('.menu .menu__list').eq(0)
-		var button = $('<li class="menu__item selector focus">')
+		let menu = $('.menu .menu__list').eq(0)
+		let button = $('<li class="menu__item selector focus">')
 			.append('<div class="menu__text">Моя страница</div>')
-			.on('hover:enter', function () {
-				openCustomPage()
-			})
+			.on('hover:enter', openCustomPage)
 
 		menu.append(button)
 	}
 
-	// Добавляем стили для кастомной страницы
-	function addStyles() {
-		var styles = `
-			<style>
-				.custom-page {
-					padding: 20px;
-					color: white;
-					text-align: center;
-				}
-				.custom-page h1 {
-					font-size: 24px;
-					margin-bottom: 20px;
-				}
-				#closePage {
-					padding: 10px 20px;
-					background-color: #404040;
-					color: white;
-					border: none;
-					border-radius: 5px;
-					cursor: pointer;
-				}
-				#closePage:hover {
-					background-color: #505050;
-				}
-			</style>
-		`
-		$('body').append(styles)
+	function init() {
+		addMenuButton()
 	}
 
-	// Запускаем после загрузки Lampa
 	Lampa.Listener.follow('app', function (e) {
 		if (e.type === 'ready') {
-			addMenuButton()
-			addStyles()
+			init()
 		}
 	})
 })()
