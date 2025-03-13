@@ -112,9 +112,23 @@
 		})
 
 		function openYouTubeIframe() {
-			// URL, который вы хотите открыть
-			let url = 'https://omyshevdev.ru' // Замените на нужный URL
-			Lampa.Platform.open(url)
+			const pageContent = `
+					<div style="background-color: #333; color: #fff; padding: 20px;">
+							<h1>Добро пожаловать на мою страницу!</h1>
+							<p>Это пример страницы внутри Lampa.</p>
+							<button id="goBackButton">Вернуться</button>
+					</div>
+			`
+
+			// Открываем новый экран
+			Lampa.Start.show(pageContent)
+
+			// Обработчик кнопки "Вернуться"
+			document
+				.getElementById('goBackButton')
+				.addEventListener('click', function () {
+					Lampa.Start.back() // Возвращаемся на предыдущий экран
+				})
 		}
 
 		// function openYouTubeIframe() {
