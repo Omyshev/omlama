@@ -119,10 +119,8 @@
 							<button id="goBackButton">Вернуться</button>
 					</div>
 			`
-
 			// Открываем новый экран
 			Lampa.Start.show(pageContent)
-
 			// Обработчик кнопки "Вернуться"
 			document
 				.getElementById('goBackButton')
