@@ -118,21 +118,6 @@
 				align: 'center',
 				zIndex: 300,
 				html: $('<div class="about"> plugins_need_reload </div>'),
-				buttons: [
-					{
-						name: 'No',
-						onSelect: function onSelect() {
-							Modal.close()
-							cancel()
-						},
-					},
-					{
-						name: 'Yes',
-						onSelect: function onSelect() {
-							window.location.reload()
-						},
-					},
-				],
 			})
 		}
 	} // end of Add (main function)
