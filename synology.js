@@ -1,52 +1,50 @@
 ;(function () {
 	'use strict'
 
+	// Создаем компонент
 	function createCustomPage() {
-		var html = Lampa.Template.js('dlna_client_main')
-		html.empty()
-
+		var html = $('<div class="custom-page">')
 		html.append('<h1 style="text-align:center;">Моя кастомная страница</h1>')
 
 		return {
 			render: function () {
 				return html
 			},
+			start: function () {},
 			destroy: function () {
 				html.remove()
 			},
 		}
 	}
 
-	Lampa.Template.add(
-		'dlna_client_main',
-		'\n<div class="dlna_client-main">\n<div class="dlna_client-main__head dlna_client-head"></div>\n<div class="dlna_client-main__body"></div>\n</div>\n'
-	)
-
-	function openCustomPage() {
-		var page = createCustomPage()
-		Lampa.Activity.push({
-			url: '',
-			title: 'Кастомная страница',
-			component: page,
-		})
-	}
-
+	// Добавляем кнопку в меню
 	function addMenuButton() {
 		var menu = $('.menu .menu__list').eq(0)
 		var button = $('<li class="menu__item selector focus">')
 			.append('<div class="menu__text">Моя страница</div>')
-			.on('hover:enter', openCustomPage)
+			.on('hover:enter', function () {
+				Lampa.Component.create({
+					name: 'custom_page',
+					visible: true,
+					// Добавляем страницу в Lampa
+					onCreate: function () {
+						var page = createCustomPage()
+						Lampa.Activity.push({
+							url: '',
+							title: 'Кастомная страница',
+							component: page, // Тут правильный компонент
+						})
+					},
+				})
+			})
 
 		menu.append(button)
 	}
 
-	function init() {
-		addMenuButton()
-	}
-
+	// Запускаем после загрузки Lampa
 	Lampa.Listener.follow('app', function (e) {
 		if (e.type === 'ready') {
-			init()
+			addMenuButton()
 		}
 	})
 })()
