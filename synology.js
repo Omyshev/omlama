@@ -2,9 +2,10 @@
 	'use strict'
 
 	function createCustomPage() {
-		var html = $('<div class="custom-page lampa-box">')
-			.append('<h1 style="text-align:center;">Моя кастомная страница</h1>')
-			.append('<p style="text-align:center;">Здесь будет ваш контент...</p>')
+		var html = Lampa.Template.js('dlna_client_main')
+		html.empty()
+
+		html.append('<h1 style="text-align:center;">Моя кастомная страница</h1>')
 
 		return {
 			render: function () {
@@ -15,6 +16,11 @@
 			},
 		}
 	}
+
+	Lampa.Template.add(
+		'dlna_client_main',
+		'\n<div class="dlna_client-main">\n<div class="dlna_client-main__head dlna_client-head"></div>\n<div class="dlna_client-main__body"></div>\n</div>\n'
+	)
 
 	function openCustomPage() {
 		var page = createCustomPage()
