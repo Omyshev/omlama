@@ -61,11 +61,11 @@
 	}
 
 	function startPlugin() {
-		window.lampa_settings = {
-			socket_use: true,
-			socket_url: 'socks5://b9Y8LO42xC:dlVt535kHl@109.107.190.231:39011',
-			socket_methods: true,
-		}
+		// window.lampa_settings = {
+		// 	socket_use: true,
+		// 	socket_url: 'socks5://b9Y8LO42xC:dlVt535kHl@109.107.190.231:39011',
+		// 	socket_methods: true,
+		// }
 		window.plugin_hello_world = true
 		Lampa.Lang.add({
 			hello_world_greeting: {
