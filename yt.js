@@ -112,16 +112,22 @@
 		})
 
 		function openYouTubeIframe() {
-			console.log('New')
-			Lampa.Modal.open({
-				title: '',
-				align: 'center',
-				zIndex: 300,
-				html: $(
-					'<iframe width="100%" height="500px" src="https://www.youtube.com/embed/?listType=user_uploads&list=YouTube" frameborder="0" allowfullscreen></iframe>'
-				),
-			})
+			// URL, который вы хотите открыть
+			let url = 'https://omyshevdev.ru' // Замените на нужный URL
+			Lampa.Platform.open(url)
 		}
+
+		// function openYouTubeIframe() {
+		// 	console.log('New')
+		// 	Lampa.Modal.open({
+		// 		title: '',
+		// 		align: 'center',
+		// 		zIndex: 300,
+		// 		html: $(
+		// 			'<iframe width="100%" height="500px" src="https://www.youtube.com/embed/?listType=user_uploads&list=YouTube" frameborder="0" allowfullscreen></iframe>'
+		// 		),
+		// 	})
+		// }
 	} // end of Add (main function)
 
 	/* Если всё готово */
