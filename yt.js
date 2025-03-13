@@ -120,14 +120,14 @@
 				html: $('<div class="about"> plugins_need_reload </div>'),
 				buttons: [
 					{
-						name: '123',
+						name: 'No',
 						onSelect: function onSelect() {
 							Modal.close()
 							cancel()
 						},
 					},
 					{
-						name: Lang.translate('settings_param_yes'),
+						name: 'Yes',
 						onSelect: function onSelect() {
 							window.location.reload()
 						},
