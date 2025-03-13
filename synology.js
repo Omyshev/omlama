@@ -33,7 +33,7 @@
 	function openCustomPage() {
 		Lampa.Activity.push({
 			url: '',
-			title: 'Кастомная страница',
+			title: 'Om',
 			component: 'custom_page', // Используем зарегистрированный компонент
 			page: 1,
 		})
