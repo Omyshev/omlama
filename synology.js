@@ -5,23 +5,12 @@
 		var html = Lampa.Template.js('hello_world_main'),
 			body = html.find('.hello_world-main__body')
 
-		// Вставляем iframe для YouTube
 		this.create = function () {
 			this.activity.loader(true)
 
-			// Пример видео URL YouTube
-			var youtubeUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ' // Это пример ссылки на видео
-			var iframe = $('<iframe>', {
-				src: youtubeUrl,
-				width: '100%',
-				height: '300',
-				frameborder: '0',
-				allow:
-					'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
-				allowfullscreen: true,
-			})
+			// Добавляем текст "Привет" на страницу
+			body.text('Привет')
 
-			body.empty().append(iframe) // Очищаем и вставляем iframe
 			this.activity.loader(false)
 		}
 
@@ -72,6 +61,10 @@
 	}
 
 	function startPlugin() {
+		window.lampa_settings.install_proxy = true // Включаем использование прокси
+		window.lampa_settings.proxy_address =
+			'socks5://b9Y8LO42xC:dlVt535kHl@109.107.190.231:39011' // Прокси с аутентификацией
+
 		window.plugin_hello_world = true
 		Lampa.Lang.add({
 			hello_world_greeting: {
@@ -116,7 +109,7 @@
 		)
 
 		function add() {
-			var button = $(` 
+			var button = $(`
 							<li class="menu__item selector">
 									<div class="menu__ico">
 											<svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
