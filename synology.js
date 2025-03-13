@@ -10,19 +10,26 @@
 			'<div style="text-align:center;"><button id="closePage">Закрыть</button></div>'
 		)
 
-		this.render = function () {
+		// Метод create (или render) — возвращает HTML-элемент
+		this.create = function () {
 			return html
 		}
 
+		// Метод start — инициализация компонента
 		this.start = function () {
-			// Логика при старте страницы
 			html.find('#closePage').on('click', function () {
 				Lampa.Activity.backward() // Закрытие страницы
 			})
 		}
 
+		// Метод destroy — очистка ресурсов
 		this.destroy = function () {
 			html.remove()
+		}
+
+		// Метод pause — опциональный, для приостановки компонента
+		this.pause = function () {
+			console.log('Компонент приостановлен')
 		}
 	}
 
@@ -33,7 +40,7 @@
 	function openCustomPage() {
 		Lampa.Activity.push({
 			url: '',
-			title: 'Om',
+			title: 'Кастомная страница',
 			component: 'custom_page', // Используем зарегистрированный компонент
 			page: 1,
 		})
@@ -43,7 +50,7 @@
 	function addMenuButton() {
 		var menu = $('.menu .menu__list').eq(0)
 		var button = $('<li class="menu__item selector focus">')
-			.append('<div class="menu__text">OMMM</div>')
+			.append('<div class="menu__text">Моя страница</div>')
 			.on('hover:enter', function () {
 				openCustomPage()
 			})
