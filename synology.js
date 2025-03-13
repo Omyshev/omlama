@@ -43,7 +43,7 @@
 	function addMenuButton() {
 		var menu = $('.menu .menu__list').eq(0)
 		var button = $('<li class="menu__item selector focus">')
-			.append('<div class="menu__text">Моя страница</div>')
+			.append('<div class="menu__text">OMMM</div>')
 			.on('hover:enter', function () {
 				openCustomPage()
 			})
