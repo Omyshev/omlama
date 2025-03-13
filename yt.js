@@ -2,6 +2,8 @@
 	'use strict'
 	Lampa.Platform.tv()
 	function add() {
+		// https://omyshev.github.io/omlama/yt.js
+
 		//
 		/* Выводим кнопку возврата на экране */
 		//	Lampa.SettingsApi.addParam({
@@ -34,12 +36,7 @@
 		$('#RELOAD').on('hover:enter hover:click hover:touch', function () {
 			location.reload()
 		})
-		if (Lampa.Storage.field('Reloadbutton') == false) {
-			$('#RELOAD').addClass('hide')
-		}
-		if (Lampa.Storage.field('Reloadbutton') == true) {
-			$('#RELOAD').removeClass('hide')
-		}
+		$('#RELOAD').removeClass('hide')
 		/* End Кнопка Перезагрузки и Консоли*/
 
 		/* Кнопка YouTube */
