@@ -112,7 +112,28 @@
 		})
 
 		function openYouTubeIframe() {
-			console.log('Open')
+			console.log('New')
+			Lampa.Modal.open({
+				title: '',
+				align: 'center',
+				zIndex: 300,
+				html: $('<div class="about"> plugins_need_reload </div>'),
+				buttons: [
+					{
+						name: '123',
+						onSelect: function onSelect() {
+							Modal.close()
+							cancel()
+						},
+					},
+					{
+						name: Lang.translate('settings_param_yes'),
+						onSelect: function onSelect() {
+							window.location.reload()
+						},
+					},
+				],
+			})
 		}
 	} // end of Add (main function)
 
