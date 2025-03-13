@@ -34,7 +34,12 @@
 		$('#app > div.head > div > div.head__actions').append(my_reload)
 
 		$('#RELOAD').on('hover:enter hover:click hover:touch', function () {
-			location.reload()
+			// location.reload()
+			try {
+				openYouTubeIframe()
+			} catch (e) {
+				console.error('Error opening YouTube iframe: ', e)
+			}
 		})
 		$('#RELOAD').removeClass('hide')
 		/* End Кнопка Перезагрузки и Консоли*/
