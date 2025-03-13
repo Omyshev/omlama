@@ -1,69 +1,46 @@
 ;(function () {
 	'use strict'
 
-	// Внешний прокси-сервер
-	const PROXY_URL = 'http://109.107.190.231:8118' // Замените на свой прокси URL
+	function createCustomPage() {
+		var html = $('<div class="custom-page lampa-box">')
+			.append('<h1 style="text-align:center;">Моя кастомная страница</h1>')
+			.append('<p style="text-align:center;">Здесь будет ваш контент...</p>')
 
-	// Функция для создания компонента YouTube с прокси
-	function createYouTubeProxyPage() {
-		var pageComponent = {
-			name: 'YouTubeProxyPage',
-			html: `
-							<div style="background-color: #333; color: #fff; padding: 20px;">
-									<h1>Добро пожаловать в YouTube с прокси</h1>
-									<p>Вы можете смотреть YouTube через прокси-сервер.</p>
-									<input id="youtubeUrl" type="text" placeholder="Введите URL видео YouTube" style="width: 80%; padding: 10px;">
-									<button id="openVideoButton" style="padding: 10px; background-color: #007bff; color: white;">Открыть видео</button>
-									<iframe id="youtubeIframe" width="100%" height="400px" style="display:none;" src="" frameborder="0"></iframe>
-							</div>
-					`,
-			events: {
-				// Обработчик для кнопки "Открыть видео"
-				'#openVideoButton': function () {
-					var youtubeUrl = document.getElementById('youtubeUrl').value.trim()
-					if (youtubeUrl) {
-						var proxiedUrl = `${PROXY_URL}/${encodeURIComponent(youtubeUrl)}`
-						var iframe = document.getElementById('youtubeIframe')
-						iframe.style.display = 'block'
-						iframe.src = proxiedUrl
-					} else {
-						alert('Пожалуйста, введите URL видео YouTube')
-					}
-				},
+		return {
+			render: function () {
+				return html
+			},
+			destroy: function () {
+				html.remove()
 			},
 		}
-
-		// Добавляем компонент в систему
-		Lampa.Component.add(pageComponent.name, pageComponent)
 	}
 
-	// Функция для открытия страницы YouTube с прокси
-	function openYouTubeProxyPage() {
-		// Получаем компонент по имени и открываем его
-		var page = Lampa.Component.get('YouTubeProxyPage')
-		Lampa.View.open(page.html)
+	function openCustomPage() {
+		var page = createCustomPage()
+		Lampa.Activity.push({
+			url: '',
+			title: 'Кастомная страница',
+			component: page,
+		})
 	}
 
-	// Добавляем кнопку в меню
-	function addMenu() {
-		var menu = Lampa.View.menu()
-
+	function addMenuButton() {
+		var menu = $('.menu .menu__list').eq(0)
 		var button = $('<li class="menu__item selector focus">')
-			.append('<div class="menu__text">YouTube с прокси</div>')
-			.on('hover:enter', openYouTubeProxyPage) // Открытие страницы при нажатии
+			.append('<div class="menu__text">Моя страница</div>')
+			.on('hover:enter', openCustomPage)
 
-		menu.append(button) // Добавляем кнопку в меню
+		menu.append(button)
 	}
 
-	// Инициализация
 	function init() {
-		createYouTubeProxyPage() // Создаём компонент страницы YouTube с прокси
-		addMenu() // Добавляем кнопку в меню
+		addMenuButton()
 	}
 
 	Lampa.Listener.follow('app', function (e) {
 		if (e.type === 'ready') {
-			init() // Инициализация при готовности приложения
+			init()
 		}
 	})
 })()
