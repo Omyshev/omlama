@@ -81,25 +81,37 @@
 		}
 
 		tubemenu.on('hover:enter', function () {
+			openYouTubeIframe()
 			//window.location.href = 'https://youtube.com/tv'
-			if (Lampa.Platform.is('webos')) {
-				webOS.service.request('luna://com.webos.applicationManager', {
-					method: 'launch',
-					parameters: { id: 'youtube.leanback.v4' },
-					onSuccess: function (inResponse) {
-						console.log('The app is launched')
-					},
-					onFailure: function (inError) {
-						console.log('Failed to launch the app')
-						console.log('[' + inError.errorCode + ']: ' + inError.errorText)
-						return
-					},
-				})
-			}
-			if (Lampa.Platform.is('android')) {
-				Lampa.Android.openYoutube('TeUQrJrfrkk')
-			} else window.location.href = 'https://youtube.com/tv' //Android.openYoutube(a.id) else YouTube.play(a.id)
+			// if (Lampa.Platform.is('webos')) {
+			// 	webOS.service.request('luna://com.webos.applicationManager', {
+			// 		method: 'launch',
+			// 		parameters: { id: 'youtube.leanback.v4' },
+			// 		onSuccess: function (inResponse) {
+			// 			console.log('The app is launched')
+			// 		},
+			// 		onFailure: function (inError) {
+			// 			console.log('Failed to launch the app')
+			// 			console.log('[' + inError.errorCode + ']: ' + inError.errorText)
+			// 			return
+			// 		},
+			// 	})
+			// }
+			// if (Lampa.Platform.is('android')) {
+			// 	Lampa.Android.openYoutube('TeUQrJrfrkk')
+			// } else window.location.href = 'https://youtube.com/tv' //Android.openYoutube(a.id) else YouTube.play(a.id)
 		})
+
+		function openYouTubeIframe() {
+			Lampa.Modal.open({
+				title: 'YouTube',
+				size: 'large',
+				html: '<iframe width="100%" height="500px" src="https://www.youtube.com/embed/?listType=user_uploads&list=YouTube" frameborder="0" allowfullscreen></iframe>',
+				onBack: function () {
+					Lampa.Modal.close()
+				},
+			})
+		}
 	} // end of Add (main function)
 
 	/* Если всё готово */
