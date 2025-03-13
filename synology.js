@@ -9,7 +9,7 @@
 
 		this.create = function () {
 			this.activity.loader(true)
-			server = Lampa.Storage.get('synology_dlna_server')
+			server = Lampa.Storage.get('om_yt_server')
 
 			if (server !== undefined && server !== null && server !== '') {
 				scroll = new Lampa.Scroll({
@@ -25,7 +25,7 @@
 				this.displayFolder()
 			} else {
 				var empty = new Lampa.Empty({
-					descr: Lampa.Lang.translate('synology_dlna_client_no_address'),
+					descr: Lampa.Lang.translate('om_yt_client_no_address'),
 				})
 				html.empty()
 				html.append(empty.render(true))
@@ -44,10 +44,8 @@
 			scroll.append(load)
 		}
 
-		// local proxy is needed for Synology NAS with old upnp sdk used (CORS restricted)
-		// UPnP/1.0, Portable SDK for UPnP devices/1.6.18: https://github.com/pupnp/pupnp/commit/542c318acff73bf9be85b886a6e447bc473f57f2
 		this.getProxyURL = function (url) {
-			var proxy = Lampa.Storage.get('synology_dlna_proxy')
+			var proxy = Lampa.Storage.get('om_yt_proxy')
 			if (proxy) {
 				if (proxy.indexOf('http') === -1) proxy = 'http://' + proxy
 				url = proxy + (proxy.endsWith('/') ? '' : '/') + url
@@ -350,9 +348,9 @@
 	}
 
 	function startPlugin() {
-		window.plugin_synology_dlna_client = true
+		window.plugin_om_yt_client = true
 		Lampa.Lang.add({
-			synology_dlna_client_no_address: {
+			om_yt_client_no_address: {
 				ru: 'Введите адрес DLNA сервера в настройках',
 				en: 'Enter the address of the DLNA server in the settings',
 				uk: 'Введіть адресу DLNA сервера в налаштуваннях',
@@ -365,8 +363,8 @@
 			type: 'plugin',
 			version: '1.0.1',
 			name: 'SynoDLNA',
-			description: 'Synology DLNA client for Lampa',
-			component: 'synology_dlna_client',
+			description: 'Youtube client for Lampa',
+			component: 'om_yt_client',
 		}
 
 		Lampa.Manifest.plugins = manifest
@@ -398,7 +396,7 @@
 		function add() {
 			// https://github.com/yumata/lampa-source/blob/main/src/components/settings/api.js
 			Lampa.SettingsApi.addComponent({
-				component: 'synology_dlna_client_config',
+				component: 'om_yt_client_config',
 				name: 'SynoDLNA',
 				icon:
 					'<svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M256 0C114.833 0 0 114.833 0 256s114.833 256 256 256 256-114.833 256-256S397.167 0 256 0Zm0 472.341c-119.275 0-216.341-97.066-216.341-216.341S136.725 39.659 256 39.659c119.295 0 216.341 97.066 216.341 216.341S375.275 472.341 256 472.341z"></path>\n' +
@@ -407,9 +405,9 @@
 					'        <circle cx="320" cy="350" r="60" fill="currentColor"></circle><path fill="currentColor" d="M35 135h270v30H35zm175.782 100h270v30h-270zM35 335h270v30H35z"></path></svg>',
 			})
 			Lampa.SettingsApi.addParam({
-				component: 'synology_dlna_client_config',
+				component: 'om_yt_client_config',
 				param: {
-					name: 'synology_dlna_server',
+					name: 'om_yt_server',
 					type: 'input', //доступно select,input,trigger,title,static
 					placeholder: '',
 					values: '',
@@ -421,9 +419,9 @@
 				},
 			})
 			Lampa.SettingsApi.addParam({
-				component: 'synology_dlna_client_config',
+				component: 'om_yt_client_config',
 				param: {
-					name: 'synology_dlna_proxy',
+					name: 'om_yt_proxy',
 					type: 'input', //доступно select,input,trigger,title,static
 					placeholder: '',
 					values: '',
@@ -431,7 +429,7 @@
 				},
 				field: {
 					name: 'Адрес и порт прокси',
-					description: 'Например, 192.168.1.125:9118/proxy',
+					description: 'Например, 192.168.1.125:9118',
 				},
 			})
 			var button = $(
@@ -463,5 +461,5 @@
 		}
 	}
 
-	if (!window.plugin_synology_dlna_client) startPlugin()
+	if (!window.plugin_om_yt_client) startPlugin()
 })()
